@@ -1,0 +1,19 @@
+div .schedule {
+    background-color: rgb(200, 220, 220);
+    border-style: solid;
+    border-width: 2px;
+    width: 60%;
+    height: 600px;
+}
+
+.schedule-header-container {
+  display: block;
+  margin-left: 2%;
+}
+
+.days-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: 85%;
+}
