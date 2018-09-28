@@ -13,6 +13,7 @@ div .schedule {
 
 .days-container {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   height: 85%;

@@ -1,6 +1,8 @@
 .day-card {
   opacity: 0%;
   min-width: 15%;
+  border: 1px solid #333;
+  height: 200px;
 }
 
 .time-slot {

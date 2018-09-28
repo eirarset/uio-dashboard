@@ -7,7 +7,9 @@ class Schedule extends React.Component {
     { name: 'IN5140', loaded: false },
     { name: 'IN5320', loaded: false },
     { name: 'INF3110', loaded: false },
-    { name: 'IN1900', loaded: false }
+    { name: 'IN1900', loaded: false },
+    { name: 'IN1000', loaded: false },
+    { name: 'IN1020', loaded: false }
   ] }
 
   componentDidMount () {
@@ -74,11 +76,11 @@ class Schedule extends React.Component {
           <h1 className='schedule-header'>Schedule</h1>
         </div>
         <div className='days-container'>
-          <Day lectures={mondayLectures} />
-          <Day lectures={tuesdayLectures} />
-          <Day lectures={wednesdayLectures} />
-          <Day lectures={thursdayLectures} />
-          <Day lectures={fridayLectures} />
+          <Day title='Monday' lectures={mondayLectures} />
+          <Day title='Tuesday' lectures={tuesdayLectures} />
+          <Day title='Wednesday' lectures={wednesdayLectures} />
+          <Day title='Thursday' lectures={thursdayLectures} />
+          <Day title='Friday' lectures={fridayLectures} />
         </div>
       </div>
     )

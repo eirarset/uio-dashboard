@@ -1,5 +1,6 @@
 import React from 'react'
-import Schedule from './Schedule'
+import Schedule from './Schedule.js'
+import Courses from './Courses.js'
 import './App.css'
 
 class App extends React.Component {
@@ -7,6 +8,7 @@ class App extends React.Component {
     return (
       <div className='App'>
         <Schedule />
+        <Courses />
       </div>
     )
   }

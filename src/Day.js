@@ -2,11 +2,18 @@ import React from 'react'
 import './Day.css'
 
 const Day = (props) => {
-  const lectures = props.lectures.map((element, index) => <Timeslot info={element} key={index} />)
+  const lectures = props.lectures.sort((a, b) => {
+    if (a.startTime < b.startTime) {
+      return -1
+    } if (a.startTime > b.startTime) {
+      return 1
+    }
+    return 0
+  }).map((element, index) => <Timeslot info={element} key={index} />)
   return (
     <div className='day-card'>
       <div className='day-header-container'>
-        <h3>Day</h3>
+        <h3>{props.title}</h3>
       </div>
       <div className='time-slots-container'>
         {lectures}
@@ -25,8 +32,6 @@ const Timeslot = (props) => {
     <div className='time-slot'>
       <h5>{props.info.course}</h5>
       {time}
-      <br />
-      This is a time slot
     </div>
   )
 }
