@@ -5,11 +5,25 @@
   height: 200px;
 }
 
+.day-header-container {
+  background-color: yellowgreen;
+  display: flex;
+  height: 10%;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .time-slot {
   border: 1px dotted #000;
   margin: 5px;
 }
 
-h5 {
+.day-title {
+  font-size: 18px;
+  /* margin-left: auto; */
+}
+
+.course-code-title {
   margin: 0;
 }

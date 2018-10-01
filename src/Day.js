@@ -13,7 +13,8 @@ const Day = (props) => {
   return (
     <div className='day-card'>
       <div className='day-header-container'>
-        <h3>{props.title}</h3>
+        <strong className='day-title'>{props.title}</strong>
+        <span>{props.temp || '-'} °C</span>
       </div>
       <div className='time-slots-container'>
         {lectures}
@@ -30,7 +31,7 @@ const Timeslot = (props) => {
   const time = startHours + ':' + startMinutes + '-' + endHours + ':' + endMinutes
   return (
     <div className='time-slot'>
-      <h5>{props.info.course}</h5>
+      <h5 className='course-code-title'>{props.info.courseCode}</h5>
       {time}
     </div>
   )

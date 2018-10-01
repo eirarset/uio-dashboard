@@ -1,4 +1,5 @@
 import React from 'react'
+import './Courses.css'
 
 class Courses extends React.Component {
   state = { input: '' }
@@ -18,6 +19,7 @@ class Courses extends React.Component {
       .then(response => {
         if (response.status === 200) {
           console.log('Course added')
+          this.props.addCourse(courseCode)
           this.setState({ input: '' })
         } else {
           console.log('Error')
@@ -26,12 +28,10 @@ class Courses extends React.Component {
   }
   render () {
     return (
-      <div>
+      <div className='courses-container'>
         <h3>My courses</h3>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            <input type='text' value={this.state.input} onChange={this.handleInput} />
-          </label>
+          <input type='text' value={this.state.input} onChange={this.handleInput} placeholder='Add new course' />
           <input type='submit' value='Submit' />
         </form>
       </div>
