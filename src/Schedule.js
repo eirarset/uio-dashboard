@@ -8,8 +8,8 @@ class Schedule extends React.Component {
     return lecturesDay
   }
 
-  componentDidMount () {
-    console.log(this.props.weather)
+  componentDidUpdate () {
+    console.log(this.props)
   }
 
   render () {
@@ -33,15 +33,15 @@ class Schedule extends React.Component {
 
     if (this.props && this.props.weather) {
       const mondayTemps = this.props.weather.filter(element => element.time.getDay() === 1)
-      mondayTemp = mondayTemps[0] && mondayTemps[0].temp
+      mondayTemp = mondayTemps[0] && Math.round(mondayTemps[0].temp)
       const tuesdayTemps = this.props.weather.filter(element => element.time.getDay() === 2)
-      tuesdayTemp = tuesdayTemps[0] && mondayTemps[0].temp
+      tuesdayTemp = tuesdayTemps[0] && Math.round(tuesdayTemps[0].temp)
       const wednesdayTemps = this.props.weather.filter(element => element.time.getDay() === 3)
-      wednesdayTemp = wednesdayTemps[0] && mondayTemps[0].temp
+      wednesdayTemp = wednesdayTemps[0] && Math.round(wednesdayTemps[0].temp)
       const thursdayTemps = this.props.weather.filter(element => element.time.getDay() === 4)
-      thursdayTemp = thursdayTemps[0] && mondayTemps[0].temp
+      thursdayTemp = thursdayTemps[0] && Math.round(thursdayTemps[0].temp)
       const fridayTemps = this.props.weather.filter(element => element.time.getDay() === 5)
-      fridayTemp = fridayTemps[0] && mondayTemps[0].temp
+      fridayTemp = fridayTemps[0] && Math.round(fridayTemps[0].temp)
     }
     return (
       <div className='schedule'>

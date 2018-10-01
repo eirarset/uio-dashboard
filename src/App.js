@@ -2,10 +2,9 @@ import React from 'react'
 import Schedule from './Schedule.js'
 import Courses from './Courses.js'
 import './App.css'
-import { varsel } from './oslovarsel.js'
 
 class App extends React.Component {
-  state = { courses: [], lectures: [] }
+  state = { courses: [], lectures: [], weather: {} }
 
   addCourse = courseCode => this.setState(state => {
     if (state.courses.some(course => course === courseCode)) {
@@ -15,12 +14,11 @@ class App extends React.Component {
   })
 
   componentDidUpdate () {
-    // console.log(this.state)
     this.loadCourses()
   }
 
   componentDidMount () {
-
+    this.loadWeather()
   }
 
   loadCourses = () => {
@@ -55,9 +53,19 @@ class App extends React.Component {
     })
   }
 
+  loadWeather = () => {
+    window.fetch('http://api.openweathermap.org/data/2.5/forecast?id=6453366&appid=5ffaf6a778d75b51da77663452180105&units=metric')
+      .then(response => response.json())
+      .then(text => {
+        this.setState({ ...this.state, weather: text })
+      }, error => console.log(error))
+  }
+
   render () {
     const lectures = [...this.state.courses.map(course => course.lectures).flat().filter(element => element)] // Filter added to fix bug. Somehow undefined shows up in the state elsewise
-    const weather = varsel.list.map(element => { return { time: new Date(element.dt * 1000), temp: element.main.temp, icon: element.weather[0].icon } })
+    const weather = this.state.weather.list ? this.state.weather.list.map(element => { return { time: new Date(element.dt * 1000), temp: element.main.temp, icon: element.weather[0].icon } })
+      : []
+
     const weatherAfter11 = weather.filter(element => element.time.getHours() >= 11)
     return (
       <div className='App'>
