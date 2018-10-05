@@ -4,7 +4,7 @@ import Courses from './Courses.js'
 import './App.css'
 
 class App extends React.Component {
-  state = { courses: [], lectures: [], weather: {}, showError: false }
+  state = { courses: [], lectures: [], weather: {}, showError: false, errorMessage: '' }
 
   addCourse = courseCode => {
     let localCourses = window.localStorage.getItem('courses')
@@ -62,7 +62,7 @@ class App extends React.Component {
             })
           },
           error => {
-            this.showError()
+            this.showError(`Could not fetch the schedule for ${course.name}`)
             console.log(error)
           })
       }
@@ -74,12 +74,15 @@ class App extends React.Component {
       .then(response => response.json())
       .then(text => {
         this.setState({ ...this.state, weather: text })
-      }, error => console.log(error))
+      }, error => {
+        this.showError('Could not fetch the weather')
+        console.log(error)
+      })
   }
 
-  showError = () => {
-    this.setState({ ...this.state, showError: true })
-    window.setTimeout(() => this.setState({ ...this.state, showError: false }), 3000)
+  showError = (errorMessage) => {
+    this.setState({ ...this.state, showError: true, errorMessage })
+    window.setTimeout(() => this.setState({ ...this.state, showError: false }), 5000)
   }
 
   deleteCourse = (courseCode) => {
@@ -104,7 +107,7 @@ class App extends React.Component {
     const error = this.state.showError
     return (
       <div className='App'>
-        {error && <div className='error-box'>Something went wrong</div>}
+        {error && <div className='error-box'>Something went wrong: {this.state.errorMessage}</div>}
         <Schedule lectures={lectures} weather={weatherAfter11} />
         <Courses addCourse={this.addCourse} courses={this.state.courses} showError={this.showError} deleteCourse={this.deleteCourse} />
       </div>

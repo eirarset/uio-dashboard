@@ -2,8 +2,9 @@ div .schedule {
     background-color: rgb(200, 220, 220);
     border-style: solid;
     border-width: 2px;
-    width: 60%;
-    height: 400px;
+    width: 90%;
+    height: min-content;
+    min-height: 400px;
 }
 
 .schedule-header-container {
@@ -16,5 +17,5 @@ div .schedule {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  height: 85%;
+  height: 80%;
 }

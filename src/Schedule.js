@@ -46,7 +46,7 @@ class Schedule extends React.Component {
     return (
       <div className='schedule'>
         <div className='schedule-header-container'>
-          <h1 className='schedule-header'>Schedule</h1>
+          <h1 className='schedule-header'>Schedule & Weather</h1>
         </div>
         <div className='days-container'>
           <Day title='Monday' lectures={mondayLectures} temp={mondayTemp} />

@@ -1,17 +1,19 @@
 .day-card {
-  opacity: 0%;
-  min-width: 15%;
   border: 1px solid #333;
-  height: 200px;
+  flex: 0.5 0 18px;
+  margin: 5px;
+  min-width: fit-content;
+  min-height: 300px;
 }
 
 .day-header-container {
-  background-color: yellowgreen;
+  background-color: #aaa;
   display: flex;
-  height: 10%;
+  flex: 1;
+  height: 22px;
   width: 100%;
-  flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .time-slot {
