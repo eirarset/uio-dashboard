@@ -5,4 +5,6 @@ The UiO data is fetched from the [UiO API](https://data.uio.no/studies/v1/).
 
 The weather information is fetched from the [OpenWeatherMap API](https://openweathermap.org/api).
 
+A zip-folder of the project can be found [here](https://github.uio.no/eeaarset/uio-dashboard/blob/master/uio-dashboard-master.zip).
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
