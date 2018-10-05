@@ -9,7 +9,7 @@ class Schedule extends React.Component {
   }
 
   componentDidUpdate () {
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   render () {

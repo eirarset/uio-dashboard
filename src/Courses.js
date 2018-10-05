@@ -22,11 +22,13 @@ class Courses extends React.Component {
           this.props.addCourse(courseCode)
           this.setState({ input: '' })
         } else {
-          console.log('Error')
+          this.props.showError()
+          console.log('Error. Either the course does not exist, or the API is not responding')
         }
       })
   }
   render () {
+    const myCourses = this.props.courses.map((element, index) => courseItem(element.name, index, this.props.deleteCourse))
     return (
       <div className='courses-container'>
         <h3>My courses</h3>
@@ -34,9 +36,19 @@ class Courses extends React.Component {
           <input type='text' value={this.state.input} onChange={this.handleInput} placeholder='Add new course' />
           <input type='submit' value='Submit' />
         </form>
+        <ul>{myCourses}</ul>
       </div>
     )
   }
+}
+
+const courseItem = (courseCode, key, deleteCourse) => {
+  return (
+    <li key={key}>
+      {courseCode}
+      <button onClick={() => deleteCourse(courseCode)}>DELETE</button>
+    </li>
+  )
 }
 
 export default Courses

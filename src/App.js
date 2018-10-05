@@ -4,14 +4,22 @@ import Courses from './Courses.js'
 import './App.css'
 
 class App extends React.Component {
-  state = { courses: [], lectures: [], weather: {} }
+  state = { courses: [], lectures: [], weather: {}, showError: false }
 
-  addCourse = courseCode => this.setState(state => {
-    if (state.courses.some(course => course === courseCode)) {
-      return state
+  addCourse = courseCode => {
+    let localCourses = window.localStorage.getItem('courses')
+    localCourses = localCourses ? JSON.parse(localCourses) : []
+    if (!localCourses.some(course => course === courseCode)) {
+      localCourses.push(courseCode)
+      window.localStorage.setItem('courses', JSON.stringify(localCourses))
     }
-    return { ...state, courses: [...state.courses, { name: courseCode, loaded: false }] }
-  })
+    this.setState(state => {
+      if (state.courses.some(course => course === courseCode)) {
+        return state
+      }
+      return { ...state, courses: [...state.courses, { name: courseCode, loaded: false }] }
+    })
+  }
 
   componentDidUpdate () {
     this.loadCourses()
@@ -19,6 +27,13 @@ class App extends React.Component {
 
   componentDidMount () {
     this.loadWeather()
+    this.loadFromLocal()
+  }
+
+  loadFromLocal = () => {
+    const local = window.localStorage
+    const courses = local.courses ? JSON.parse(local.courses).map(course => { return { name: course, loaded: false } }) : []
+    this.setState({ courses })
   }
 
   loadCourses = () => {
@@ -47,6 +62,7 @@ class App extends React.Component {
             })
           },
           error => {
+            this.showError()
             console.log(error)
           })
       }
@@ -61,16 +77,36 @@ class App extends React.Component {
       }, error => console.log(error))
   }
 
+  showError = () => {
+    this.setState({ ...this.state, showError: true })
+    window.setTimeout(() => this.setState({ ...this.state, showError: false }), 3000)
+  }
+
+  deleteCourse = (courseCode) => {
+    let localCourses = window.localStorage.getItem('courses')
+    localCourses = localCourses ? JSON.parse(localCourses).filter(course => course !== courseCode) : []
+    window.localStorage.setItem('courses', JSON.stringify(localCourses))
+
+    this.setState((state, props) => {
+      const courses = state.courses.filter(course => course.name !== courseCode)
+      return { ...state, courses }
+    })
+  }
+
   render () {
     const lectures = [...this.state.courses.map(course => course.lectures).flat().filter(element => element)] // Filter added to fix bug. Somehow undefined shows up in the state elsewise
-    const weather = this.state.weather.list ? this.state.weather.list.map(element => { return { time: new Date(element.dt * 1000), temp: element.main.temp, icon: element.weather[0].icon } })
+    const weather = this.state.weather.list
+      ? this.state.weather.list.map(element => {
+        return { time: new Date(element.dt * 1000), temp: element.main.temp, icon: element.weather[0].icon }
+      })
       : []
-
     const weatherAfter11 = weather.filter(element => element.time.getHours() >= 11)
+    const error = this.state.showError
     return (
       <div className='App'>
+        {error && <div className='error-box'>Something went wrong</div>}
         <Schedule lectures={lectures} weather={weatherAfter11} />
-        <Courses addCourse={this.addCourse} />
+        <Courses addCourse={this.addCourse} courses={this.state.courses} showError={this.showError} deleteCourse={this.deleteCourse} />
       </div>
     )
   }
